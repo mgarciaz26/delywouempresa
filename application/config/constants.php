@@ -32,7 +32,7 @@ defined('DIR_READ_MODE')   OR define('DIR_READ_MODE', 0755);
 defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
 
 define('URL_DOMAIN', 'http://localhost/');
-define('URL_SUBDOMAIN', 'trumtumempresa/');
+define('URL_SUBDOMAIN', 'delywouempresa/');
 define('URL_MAIN', URL_DOMAIN . URL_SUBDOMAIN );
 define('URL_MAIN_ADMIN', URL_MAIN . 'admin/' );
 define('URL_CSS', URL_MAIN . 'assets/css/');
