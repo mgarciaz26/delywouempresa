@@ -3,63 +3,6 @@
 
 //ValidarSesion();
 
-
-
-$(function () {
-
-    $.validator.addMethod("valueNotEquals", function(value, element, arg){
-        return arg !== value;
-    }, "Este campo es obligatorio");
-
-    $("#frmData").validate({
-        submitHandler: function () {
-            frmData.GuardarDatos();
-        },
-        rules: {
-            'categoria': {
-                required: true,
-                valueNotEquals: "0"              
-            },
-            'nombre': {
-                required: true                
-            },
-            'imagen': {
-                required: true                
-            },
-            'precio': {
-                required: true,
-                number: true               
-            },
-            'descuento': {
-                required: true,
-                number: true               
-            },
-            'detalle': {
-                required: true                
-            }
-        },
-        errorPlacement: function errorPlacement(error, element) {
-            var $parent = $(element).parents('.form-group');
-            if ($parent.find('.jquery-validation-error').length) {
-                return;
-            }
-            $parent.append(error.addClass('jquery-validation-error small form-text invalid-feedback'));
-        },
-        highlight: function (element) {
-            var $el = $(element);
-            var $parent = $el.parents('.form-group');
-            $el.addClass('is-invalid');
-            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
-                $el.parent().addClass('is-invalid');
-            }
-        },
-        unhighlight: function (element) {
-            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
-        }
-    });
-
-});
-
 var frmPanel = new Vue({
     el: '#frmPanel',
     data: {
@@ -68,23 +11,20 @@ var frmPanel = new Vue({
     },
     methods: {
         AgregarTabla: function (data) {
-
-            console.log(data);
-
             this.Table.row.add(
-                [data.categoria,
-                    '<img src="'+ _URL_BASE_ + data.imagen + '" with="40px" height="40px" />' ,
-                data.nombre,
-                data.precio_venta,
-                data.estado == 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">Inactivo</span>',
-                '<a href="#!" id="editar" onClick="Editar(' + data.id + ')" ><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>' +
+                [data.cliente,                    
+                data.direccion,
+                data.mediopago,
+                data.estado == 1 ? '<span class="badge badge-success">Pendiente</span>' : 
+                data.estado == 2 ? '<span class="badge badge-danger">Preparando</span>' : 
+                data.estado == 3 ? '<span class="badge badge-danger">En camino</span>' : '<span class="badge badge-danger">Llegamos</span>',
+                '<a href="#!" onClick="Editar(' + data.id + ')" ><i class="icon feather icon-eye f-w-600 f-16 m-r-15 text-c-yellow"></i></a>' +
+                '<a href="#!" onClick="CambiarEstado(' + data.id + ')" ><i class="icon feather icon-check f-w-600 f-16 m-r-15 text-c-green"></i></a>' +
                 '<a href="#!" onClick="Eliminar(' + data.id + ')" ><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>'
             ]);
         },
         AgregarCombo: function (data) {
             
-                console.log(data);
-
                 var option = $("<option/>", {
                    value: data.id,
                    text: data.nombre
@@ -95,16 +35,16 @@ var frmPanel = new Vue({
         },
         ListarData: function () {
 
-            axios.get(_URL_BASE_API_ + `producto/listar`, {
+            axios.get(_URL_BASE_API_ + `pedido/listar`, {
                 headers: v_headers
             }).then(respuesta => {
 
                 if (respuesta.data.estado) {
 
                     this.Table.clear();
-                    let lstData = respuesta.data.producto;
-                    lstData.forEach(producto => {
-                        this.AgregarTabla(producto);
+                    let lstData = respuesta.data.pedido;
+                    lstData.forEach(pedido => {
+                        this.AgregarTabla(pedido);
                     });
 
                     this.Table.draw();
@@ -148,12 +88,12 @@ var frmData = new Vue({
     el: '#frmData',
     data: {
         id: '',
-        categoria: '',
-        nombre: '',
-        imagen: '',
+        cliente: '',
+        mediopago: '',
+        direccion: '',
         precio: '0.0',        
         descuento: '0.0',
-        detalle: ''
+        detalle: { nombre: '', imagen: '' }
     },
     methods: {        
         LimpiarFormulario: function () {
@@ -163,7 +103,7 @@ var frmData = new Vue({
             this.imagen = '',
             this.precio = '0.0',            
             this.descuento = '0.0',
-            this.detalle = ''
+            this.detalle = []
         },
         ObtenerDatos: function () {
             return {
@@ -180,6 +120,40 @@ var frmData = new Vue({
 
             this.precio = this.precio.toFixed(2);
             this.descuento = this.descuento.toFixed(2);
+
+        },
+        Recepcionar: function (){
+          
+            let pedido = {id: this.id}
+            
+            axios.post( _URL_BASE_API_ + `pedido/cambiarestado` , pedido,{
+                headers: v_headers
+            })
+					.then(respuesta => {                        
+
+                        if (respuesta.data.estado){
+                                                    
+                            frmPanel.Table.clear();
+                            let lstData = respuesta.data.pedido;
+                            lstData.forEach(pedido => {
+                                frmPanel.AgregarTabla(pedido);
+                            });
+
+                            frmPanel.Table.draw();
+
+                            MensajeAlerta('Datos ingresados correctamente','success');
+                            
+                        }else{
+                            
+                            MensajeAlerta(respuesta.data.producto[0].mensaje,'error');
+
+                        }
+
+                        $('#modal-report').modal('hide');
+										
+					}).catch(error=>{
+						console.log(error);
+					});
 
         },
         GuardarDatos: function () {
@@ -228,13 +202,11 @@ var frmData = new Vue({
         },
         Ver: function (data) {
             this.id = data.id;
-            this.categoria = data.categoria;
-            this.nombre = data.nombre; 
-            this.imagen = data.imagen;
-            this.precio = data.precio.toFixed(2);
-            this.descuento = data.descuento.toFixed(2);            
+            this.cliente = data.cliente;
+            this.mediopago = data.mediopago; 
+            this.direccion = data.direccion;                      
             this.detalle = data.detalle;
-            $("#categoria option[value="+ data.categoria_id +"]").attr("selected",true);                     
+            console.log(this.detalle[0].nombre);
         }
     }
 })
@@ -246,7 +218,8 @@ function CrearTable() {
             //dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
+            ],
+            "order": [[ 3, "desc" ]]
         });
 
     return table;
@@ -272,10 +245,13 @@ function Editar(id) {
             .then((willDelete) => {
                 if (willDelete) {
                     
-                    axios.get(_URL_BASE_API_ + `producto/listar/` + id, {
+                    axios.get(_URL_BASE_API_ + `pedido/listar/` + id, {
                     headers: v_headers
                     }).then(respuesta => {
-                        let data = respuesta.data.producto[0];
+                        let data = respuesta.data.pedido[0];
+
+                        console.log(data);
+
                         $('#modal-report').modal('show');
                         frmData.Ver(data);
 
@@ -284,8 +260,53 @@ function Editar(id) {
                 } 
             });
 
+    }    
+
+}
+
+function CambiarEstado (id) {
+
+    if(id>0){
+
+        EditarRegistro()
+            .then((willDelete) => {
+                if (willDelete) {
+                    
+                    let pedido = {id: id}
+            
+            axios.post( _URL_BASE_API_ + `pedido/cambiarestado` , pedido,{
+                headers: v_headers
+            })
+					.then(respuesta => {                        
+
+                        if (respuesta.data.estado){
+                                                    
+                            frmPanel.Table.clear();
+                            let lstData = respuesta.data.pedido;
+                            lstData.forEach(pedido => {
+                                frmPanel.AgregarTabla(pedido);
+                            });
+
+                            frmPanel.Table.draw();
+
+                            MensajeAlerta('Datos ingresados correctamente','success');
+                            
+                        }else{
+                            
+                            MensajeAlerta(respuesta.data.producto[0].mensaje,'error');
+
+                        }
+
+                        $('#modal-report').modal('hide');
+										
+					}).catch(error=>{
+						console.log(error);
+					});
+                    
+                } 
+            });
+
     }
-    
 
 }
 
@@ -331,16 +352,4 @@ function LimpiarFormulario(){
     frmData.LimpiarFormulario();
 }
 
-//$('.money_example').mask('0.00');
-
-$("#precio").change(function() {
-    var $this = $(this);
-    $this.val(parseFloat($this.val()).toFixed(2));        
-});
-
-$("#descuento").change(function() {
-    var $this = $(this);
-    $this.val(parseFloat($this.val()).toFixed(2));        
-});
-
-//});
+setInterval('frmPanel.ListarData()',30000);

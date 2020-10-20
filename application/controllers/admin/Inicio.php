@@ -14,8 +14,8 @@ class Inicio extends CI_Controller {
         
         $data['main_content'] = 'admin/inicio/panel_view';
         $data['titulo'] = 'Inicio';
-        $data['titulo_nuevo'] = 'Nueva categoría';
-        $data['titulo_lista'] = 'Lista de categorías';
+        $data['titulo_nuevo'] = 'Nuevo pedido';
+        $data['titulo_lista'] = 'Lista de Pedidos para hoy';
         $this->load->view('master/plantilla_view', $data);
         
     }

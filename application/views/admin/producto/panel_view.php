@@ -43,7 +43,7 @@
                             <div class="col-sm-6">
                             </div>
                             <div class="col-sm-6 text-right">
-                                <button id="btnLimpiar" class="btn btn-secondary btn-sm btn-round has-ripple" data-toggle="modal" data-target="#modal-report"><i class="feather icon-plus"></i> Nuevo</button>
+                                <button onclick="LimpiarFormulario()" class="btn btn-secondary btn-sm btn-round has-ripple" data-toggle="modal" data-target="#modal-report"><i class="feather icon-plus"></i> Nuevo</button>
                             </div>
                         </div>
                         

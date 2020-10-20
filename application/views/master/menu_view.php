@@ -25,10 +25,15 @@
 						</ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-mail"></i></span><span class="pcoded-mtext">Bandeja de Entrada</span></a>
+						<a href="#!" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-mail"></i></span><span class="pcoded-mtext">Bandeja de entrada</span></a>
 						<ul class="pcoded-submenu">
-							<li><a href="<?php echo URL_MAIN_ADMIN ?>pendientes">Pendientes</a></li>
-							<li><a href="<?php echo URL_MAIN_ADMIN ?>atendidos">Atendidos</a></li>
+							<li><a href="<?php echo URL_MAIN_ADMIN ?>pedido">Pedido</a></li>
+						</ul>
+					</li>
+					<li class="nav-item pcoded-hasmenu">
+						<a href="#!" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-mail"></i></span><span class="pcoded-mtext">Reportes</span></a>
+						<ul class="pcoded-submenu">
+							<li><a href="<?php echo URL_MAIN_ADMIN ?>rptpedido">Pedido</a></li>
 						</ul>
 					</li>
 					<li class="nav-item pcoded-hasmenu">

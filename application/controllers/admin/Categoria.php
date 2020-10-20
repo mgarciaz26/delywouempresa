@@ -20,10 +20,4 @@ class Categoria extends CI_Controller {
         
     }
 
-    function randy($valor) {
-        
-        $this->load->view('master/plantilla_view', $data);
-        
-    }
-
 }

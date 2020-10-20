@@ -38,7 +38,7 @@
 				<div class="col-md-12">
 					<div class="card-body">
 						<img src="<?php echo URL_IMAGES ?>logo-dark.png" alt="" class="img-fluid mb-4">
-						<h4 class="mb-3 f-w-400">Empresa</h4>
+						<h4 class="mb-3 f-w-400">Negocios</h4>
 						<form id="frmLogin" autocomplete="off" >
 							<div class="form-group mb-3">
 								<label class="floating-label" for="usuario">Correo electrónico</label>

@@ -33,6 +33,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
 	
+	
 	<script src="<?php echo URL_JS ?>pages/jsConfig.js"></script>
 	<script src="<?php echo URL_JS ?>pages/jsGeneral.js"></script>
 
@@ -43,6 +44,7 @@
     
     <script src="<?php echo URL_JS ?>plugins/jquery.dataTables.min.js"></script>
 	<script src="<?php echo URL_JS ?>plugins/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 	
 </head>
 <body class="">
