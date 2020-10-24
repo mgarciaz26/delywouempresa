@@ -73,6 +73,18 @@ function EliminarRegistro(){
     
 }
 
+function CambiarEstado(mensaje){
+
+    return swal({
+        title: "¿Está seguro de "+mensaje+" el negocio?",
+        text: "",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    
+}
+
 function Log_Error(data){
 
     console.log(data);

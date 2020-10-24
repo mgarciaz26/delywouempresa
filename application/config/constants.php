@@ -31,7 +31,7 @@ defined('FILE_WRITE_MODE') OR define('FILE_WRITE_MODE', 0666);
 defined('DIR_READ_MODE')   OR define('DIR_READ_MODE', 0755);
 defined('DIR_WRITE_MODE')  OR define('DIR_WRITE_MODE', 0755);
 
-define('URL_DOMAIN', 'http://localhost/');
+define('URL_DOMAIN', 'http://localhost:8081/');
 define('URL_SUBDOMAIN', 'delywouempresa/');
 define('URL_MAIN', URL_DOMAIN . URL_SUBDOMAIN );
 define('URL_MAIN_ADMIN', URL_MAIN . 'admin/' );

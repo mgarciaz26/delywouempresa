@@ -190,7 +190,7 @@ var frmData = new Vue({
             let producto = new FormData($("#frmData")[0]);
             
             axios.post( _URL_BASE_API_ + `producto/guardar` , producto,{
-                headers: v_headers
+                headers: v_headers_multipart
             })
 					.then(respuesta => {                        
 
