@@ -2,10 +2,9 @@
                             <table id="report-table" class="table table-bordered table-striped mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Categoría</th>
-                                        <th>Imagen</th>
-                                        <th>Producto</th>                                        
-                                        <th>Precio</th>                                        
+                                        <th>Cliente</th>
+                                        <th>Direccion</th>
+                                        <th>Medio Pago</th>                                                                                
                                         <th>Estado</th>  
                                         <th></th>
                                     </tr>

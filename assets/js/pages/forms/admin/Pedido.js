@@ -69,10 +69,9 @@ var frmPanel = new Vue({
     methods: {
         AgregarTabla: function (data) {
             this.Table.row.add(
-                [data.categoria,
-                    '<img src="'+ _URL_BASE_ + data.imagen + '" with="40px" height="40px" />' ,
-                data.nombre,
-                data.precio_venta,
+                [data.cliente,                    
+                data.direccion,
+                data.mediopago,
                 data.estado == 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">Inactivo</span>',
                 '<a href="#!" id="editar" onClick="Editar(' + data.id + ')" ><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>' +
                 '<a href="#!" onClick="Eliminar(' + data.id + ')" ><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>'
@@ -92,16 +91,16 @@ var frmPanel = new Vue({
         },
         ListarData: function () {
 
-            axios.get(_URL_BASE_API_ + `producto/listar`, {
+            axios.get(_URL_BASE_API_ + `pedido/listar`, {
                 headers: v_headers
             }).then(respuesta => {
 
                 if (respuesta.data.estado) {
 
                     this.Table.clear();
-                    let lstData = respuesta.data.producto;
-                    lstData.forEach(producto => {
-                        this.AgregarTabla(producto);
+                    let lstData = respuesta.data.pedido;
+                    lstData.forEach(pedido => {
+                        this.AgregarTabla(pedido);
                     });
 
                     this.Table.draw();
@@ -286,39 +285,138 @@ function Editar(id) {
 
 }
 
+
+var frmMotivo = new Vue({
+    el:'#frmMotivo',
+    data:{
+        motivo:'',
+        id:''        
+    },
+    methods:{
+        LimpiarFormulario: function () {        
+            this.motivo = '', 
+            this.id = ''    
+        },
+        GuardarDatos:function(){
+    
+            let motivo = new FormData($("#frmMotivo")[0]);
+    
+            axios.post( _URL_BASE_API_ + `pedido/eliminar` , motivo,{
+                headers: v_headers
+            })
+                    .then(respuesta => {                        
+    
+                        if (respuesta.data.estado){                    
+                            let reg = respuesta.data.pedido;
+                            console.log(reg);
+                            MensajeAlerta('Datos ingresados correctamente','success');   
+                            frmPanel.ListarData();                                                    
+                        }else{                            
+                            MensajeAlerta(respuesta.data.pedido[0].mensaje,'error');
+                        }
+
+                        $('#modal-report-comentario').modal('hide');										
+                    }).catch(error=>{
+                        console.log(error);
+                    });
+            this.LimpiarFormulario(); 
+            // $('#modal-report-comentario').modal('hide');										
+        }
+    }
+    
+    });
+
 function Eliminar(id) {
 
     if(id>0){
-
-        EliminarRegistro()
-            .then((willDelete) => {
-                if (willDelete) {
-                    
-                    axios.post( _URL_BASE_API_ + `producto/eliminar`, { id: id }, {
-                        headers: v_headers
-                    })
-                        .then(respuesta => {
-                
-                            if (respuesta.data.estado) {
-                
-                                frmPanel.Table.clear();
-                                let lstData = respuesta.data.producto;
-                                lstData.forEach(producto => {
-                                    frmPanel.AgregarTabla(producto);
-                                });
-                
-                                frmPanel.Table.draw();
-                
-                            }
-                
-                        }).catch(error => {
-                            console.log(error);
-                        });
-                    
-                } 
-            }).catch(error => {
-                console.log(error);
+        frmMotivo.id = id;     
+        EliminarRegistro().then((willDelete)=>{
+           if(willDelete){            
+            $('#modal-report-comentario').modal('show');
+            
+            $("#frmMotivo").validate({
+                submitHandler: function () {
+                    frmMotivo.GuardarDatos();                       
+                },        
+                errorPlacement: function errorPlacement(error, element) {
+                    var $parent = $(element).parents('.form-group');
+                    if ($parent.find('.jquery-validation-error').length) {
+                        return;
+                    }
+                    $parent.append(error.addClass('jquery-validation-error small form-text invalid-feedback'));
+                },
+                highlight: function (element) {
+                    var $el = $(element);
+                    var $parent = $el.parents('.form-group');
+                    $el.addClass('is-invalid');
+                    if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                        $el.parent().addClass('is-invalid');
+                    }
+                },
+                unhighlight: function (element) {
+                    $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+                }
             });
+
+              
+            //   axios.post( _URL_BASE_API_ + `producto/eliminar`, descripcion,{ id: id }, {
+            //       headers: v_headers
+            //   })
+            //       .then(respuesta => {
+              
+            //           if (respuesta.data.estado) {
+              
+            //               frmPanel.Table.clear();
+            //               let lstData = respuesta.data.producto;
+            //               lstData.forEach(producto => {
+            //                   frmPanel.AgregarTabla(producto);
+            //               });
+              
+            //               frmPanel.Table.draw();
+
+            //               $('#modal-report-comentario').modal('hide');
+              
+            //           }
+              
+            //   }).catch(error => {
+            //       console.log(error);
+            //   });
+
+
+           }
+        });
+
+
+
+        // EliminarRegistro()
+        //     .then((willDelete) => {
+        //         if (willDelete) {
+                    
+        //             axios.post( _URL_BASE_API_ + `producto/eliminar`, { id: id }, {
+        //                 headers: v_headers
+        //             })
+        //                 .then(respuesta => {
+                
+        //                     if (respuesta.data.estado) {
+                
+        //                         frmPanel.Table.clear();
+        //                         let lstData = respuesta.data.producto;
+        //                         lstData.forEach(producto => {
+        //                             frmPanel.AgregarTabla(producto);
+        //                         });
+                
+        //                         frmPanel.Table.draw();
+                
+        //                     }
+                
+        //                 }).catch(error => {
+        //                     console.log(error);
+        //                 });
+                    
+        //         } 
+        //     }).catch(error => {
+        //         console.log(error);
+        //     });
 
     }
 

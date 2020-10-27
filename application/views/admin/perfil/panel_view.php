@@ -44,6 +44,8 @@
 
 <script src="<?php echo URL_JS ?>pages/forms/admin/Perfil.js"></script>
 <script src="<?php echo URL_JS ?>pages/forms/admin/Perfilportada.js"></script>
+<!-- <script src="< ?php echo URL_JS ?>pages/forms/admin/PerfilCambiarcontrasenia.js"></script> -->
+
 
 
 

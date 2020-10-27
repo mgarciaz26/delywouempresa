@@ -1,0 +1,14 @@
+ul.parsley-errors-list{
+    width: 100%;
+    color: red;
+    margin: 0;
+    list-style-type: none;
+    PADDING-LEFT: 10px;
+}
+ul.parsley-errors-list > li{
+    color: red;
+}
+
+ul.parsley-errors-list > li::before{
+    content: '*';
+}

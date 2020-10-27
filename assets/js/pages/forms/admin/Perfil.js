@@ -1,35 +1,3 @@
-//ValidarSesion();
-
-$(function () {
-
-    // $("#frmData").validate({
-    //     submitHandler: function () {
-    //         frmImagen.GuardarDatos();
-    //         // frmImagenPortada.GuardarDatos();
-    //     },        
-    //     errorPlacement: function errorPlacement(error, element) {
-    //         var $parent = $(element).parents('.form-group');
-    //         if ($parent.find('.jquery-validation-error').length) {
-    //             return;
-    //         }
-    //         $parent.append(error.addClass('jquery-validation-error small form-text invalid-feedback'));
-    //     },
-    //     highlight: function (element) {
-    //         var $el = $(element);
-    //         var $parent = $el.parents('.form-group');
-    //         $el.addClass('is-invalid');
-    //         if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
-    //             $el.parent().addClass('is-invalid');
-    //         }
-    //     },
-    //     unhighlight: function (element) {
-    //         $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
-    //     }
-    // });
-
-});
-
-
 var frmData = new Vue({
     el: '#frmData',
     data: {
@@ -43,7 +11,9 @@ var frmData = new Vue({
         imagen:'',
         imagenportada:'',
         latitud:0,
-        longitud:0        
+        longitud:0,
+        contrasenia:'',
+        repcontrasenia:''        
     },
     methods: {
         LimpiarFormulario: function () {
@@ -118,10 +88,7 @@ var frmData = new Vue({
             });
             
                        
-        },
-        // CargarImagen: function(){
-        //     alert('Hola Mundo');
-        // },
+        },        
         GuardarDatos: function () {
             
             let categoria = this.ObtenerDatos();
@@ -192,10 +159,7 @@ var frmImagen = new Vue({
             }
         },        
         GuardarDatos: function () {   
-
-
-            //alert('olaaaa');
-
+        
             let perfil = new FormData($("#frmImagen")[0]);
 
             console.log(perfil);
@@ -212,28 +176,13 @@ var frmImagen = new Vue({
                             console.log(reg);
 
                             frmData.imagen = reg.imagen;
-                            
-                            // if (perfil.id === 0){
 
-                            //     // frmPanel.AgregarTabla(reg);
-                            //     // frmPanel.Table.draw();
-
-                            // }else{
-
-                            //     frmPanel.ListarData();
-
-                            // }
-
-                            MensajeAlerta('Datos ingresados correctamente','success');
-                            
-                        }else{
-                            
+                            MensajeAlerta('Datos ingresados correctamente','success');                            
+                        }else{                            
                             MensajeAlerta(respuesta.data.perfil[0].mensaje,'error');
-
                         }
 
-                        $('#modalreport').modal('hide');
-										
+                        $('#modalreport').modal('hide');										
 					}).catch(error=>{
 						console.log(error);
 					});
@@ -263,9 +212,7 @@ function CrearTable() {
 
 }
 
-
 frmData.ListarData();
-// frmData.CambiarEstado();
 
 function Editar(id) {
     
@@ -436,12 +383,7 @@ function LocalizarDireccion() {
     // });
   }
 
-
-
-
-
   /* -- Guardar cordenadas ---*/
-
   var frmUbicacion = new Vue({
     el:'#frmUbicacion',
     data :{        
@@ -463,8 +405,7 @@ function LocalizarDireccion() {
             }
         },
         GuardarDatosUbicacion: function(){
-
-            // let perfil = new FormData($("#frmImagenPortada")[0]);
+            
             let ubicacion = this.ObtenerDatosUbicacion();
 
             console.log(ubicacion);
@@ -479,18 +420,14 @@ function LocalizarDireccion() {
                             let reg = respuesta.data.perfil;
                             frmData.latitud = reg.latitud;
                             frmData.longitud = reg.longitud;
-                            
-                            // console.log(reg);
 
-                            //frmData.imagenportada = reg.imagenportada;
-                                                      
                             MensajeAlerta('Datos ingresados correctamente','success');
                             
                         }else{                            
                             MensajeAlerta(respuesta.data.perfil[0].mensaje,'error');
                         }
 
-                        $('#modalreportportada').modal('hide');
+                        $('#modal-report').modal('hide');
 										
 					}).catch(error=>{
 						console.log(error);
@@ -560,5 +497,75 @@ function LocalizarDireccion() {
     .catch(function(error){
       console.log(error);
     });
+
+  }
+
+
+var frmCambiarContrsenia = new Vue({
+el:'#frmCambiarContrasenia',
+data:{
+    contrasenia:'',
+    repcontrasenia:''
+},
+methods:{
+    LimpiarFormulario: function () {        
+        this.contrasenia = '',
+        this.repcontrasenia = ''        
+    },
+    GuardarDatos:function(){
+
+        let contrasenia = new FormData($("#frmCambiarContrasenia")[0]);
+
+        axios.post( _URL_BASE_API_ + `perfil/guardarcontrasenia` , contrasenia,{
+            headers: v_headers
+        })
+                .then(respuesta => {                        
+
+                    if (respuesta.data.estado){                    
+                        let reg = respuesta.data.perfil;
+                        console.log(reg);
+                        MensajeAlerta('Datos ingresados correctamente','success');  
+                        $('#modal-report-contrasenia').modal('hide');										
+                    }else{                            
+                        MensajeAlerta(respuesta.data.perfil[0].mensaje,'error');
+                    }                    
+                }).catch(error=>{
+                    console.log(error);
+                });
+        this.LimpiarFormulario(); 
+    }
+}
+
+});
+
+  
+
+  function CambiarContrasenia(){    
+    $('#modal-report-contrasenia').modal('show');
+
+    $("#frmCambiarContrasenia").validate({
+        submitHandler: function () {
+            frmCambiarContrsenia.GuardarDatos();            
+        },        
+        errorPlacement: function errorPlacement(error, element) {
+            var $parent = $(element).parents('.form-group');
+            if ($parent.find('.jquery-validation-error').length) {
+                return;
+            }
+            $parent.append(error.addClass('jquery-validation-error small form-text invalid-feedback'));
+        },
+        highlight: function (element) {
+            var $el = $(element);
+            var $parent = $el.parents('.form-group');
+            $el.addClass('is-invalid');
+            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                $el.parent().addClass('is-invalid');
+            }
+        },
+        unhighlight: function (element) {
+            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+        }
+    });
+
 
   }

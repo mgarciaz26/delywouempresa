@@ -60,5 +60,6 @@
 <!-- Button trigger modal -->
 
 <?php $this->load->view('admin/pedido/nuevo_view'); ?>
+<?php $this->load->view('admin/pedido/motivo_view'); ?>
 
 <script src="<?php echo URL_JS ?>pages/forms/admin/Pedido.js"></script>

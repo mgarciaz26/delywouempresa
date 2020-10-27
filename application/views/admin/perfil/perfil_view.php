@@ -29,14 +29,14 @@
                                             <a class="dropdown-item"  href="#" data-toggle="modal" onClick="CargarImagen()">Editar Foto de perfil </a>
                                             <a class="dropdown-item" href="#" data-toggle="modal" onClick="CargarImagenPortada()">Editar Foto de portada</a>
                                             <a class="dropdown-item" href="#" data-toggle="modal"  onClick="LocalizarDireccion()" >Editar Ubicación</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal"  onClick="CambiarContraseña()" >Cambiar Contraseña</a>
+                                            <a class="dropdown-item" href="#" data-toggle="modal"  onClick="CambiarContrasenia()" >Cambiar Contraseña</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="text-center">
-                            <a href="#!" data-toggle="modal" data-target="#modal-report">
+                            <a href="#!">
                                 <h4 class="mb-1 mt-3">{{nombre}}</h4>
                             </a>
                             <p class="mb-3 text-muted"><i class="feather icon-calendar"> </i> {{fechanacimiento}}</p>
@@ -45,6 +45,7 @@
                         </div>
                         <?php $this->load->view('admin/perfil/imagenperfil_view'); ?>
                         <?php $this->load->view('admin/perfil/imagenportada_view'); ?>                        
+                        <?php $this->load->view('admin/perfil/cambiarcontrasenia_view'); ?>                        
                     </div>                
                 </div>                                
             </div>    

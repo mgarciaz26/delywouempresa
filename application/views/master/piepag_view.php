@@ -130,6 +130,8 @@
     <script src="<?php echo URL_JS ?>plugins/select2.full.min.js"></script>
     <!-- form-select-custom Js -->
     <script src="<?php echo URL_JS ?>pages/form-select-custom.js"></script>
+    <script src="<?php echo URL_JS ?>parsley.min.js"> </script>
+    <script src="<?php echo URL_JS ?>i18n/es.js"> </script>    
 
 </body>
 

@@ -28,7 +28,9 @@
     <link rel="stylesheet" href="<?php echo URL_CSS ?>plugins/select2.min.css">
 	
     <!-- vendor css -->
-    <link rel="stylesheet" href="<?php echo URL_CSS ?>style.css">
+	<link rel="stylesheet" href="<?php echo URL_CSS ?>style.css">
+	
+	<link rel="stylesheet" href="<?php echo URL_CSS ?>stylevalidation.css">
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
