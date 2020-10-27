@@ -73,7 +73,7 @@ var frmPanel = new Vue({
 
             this.Table.row.add(
                 [data.categoria,
-                    '<img src="'+ _URL_BASE_ + data.imagen + '" with="40px" height="40px" />' ,
+                    '<img src="'+ data.imagen + '" with="40px" height="40px" />' ,
                 data.nombre,
                 data.precio_venta,
                 data.estado == 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">Inactivo</span>',
