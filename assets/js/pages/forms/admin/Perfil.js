@@ -468,7 +468,7 @@ function LocalizarDireccion() {
     
       frmUbicacion.latitud = lat;
       frmUbicacion.longitud = lng;
-      frmUbicacion.lugar = departamento+' , '+pais;
+      frmUbicacion.lugar = departamento+', '+pais;
       frmUbicacion.nombre = provincia;
       frmUbicacion.departamento = departamento;
       
