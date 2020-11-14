@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>..:: <?php echo $titulo ?> - altoke ::..</title>
+    <title>..:: Delywou - <?php echo $titulo ?> ::..</title>
     <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     

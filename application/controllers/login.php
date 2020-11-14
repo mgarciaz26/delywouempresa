@@ -12,7 +12,7 @@ class Login extends CI_Controller {
 
     function index() {
 
-        $data['titulo'] = '..:: Altoke | Iniciar sesión ::..';
+        $data['titulo'] = '..:: Delywou | Iniciar sesión ::..';
         $this->load->view('inicio_view',$data);
 
     }
