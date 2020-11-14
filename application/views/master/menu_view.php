@@ -5,9 +5,13 @@
 				
 				<div class="">
 					<div class="main-menu-header">
-						<img class="img-radius" src="<?php echo URL_IMAGES ?>user/avatar-2.jpg" alt="User-Profile-Image">
+					<!-- v-bind:src="imagen" -->
+					<!-- src="< ?php echo URL_IMAGES ?>user/avatar-2.jpg" -->
+
+						<img  style="width:80px;height:80px" class="img-radius" id="imgperfil" src="<?php echo URL_IMAGES ?>user/avatar-2.jpg"  alt="User-Profile-Image">
 						<div class="user-details">
-							<div id="more-details"><span id="usuario" ></span></div>
+							<div id="more-details"><span class="razonsocial" ></span></div>
+							<!-- <div id="more-details"></div> -->
 						</div>
 					</div>
 					

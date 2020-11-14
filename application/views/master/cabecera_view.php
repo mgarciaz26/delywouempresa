@@ -154,8 +154,9 @@
 								</a>
 								<div class="dropdown-menu dropdown-menu-right profile-notification">
 									<div class="pro-head">
-										<img src="<?php echo URL_IMAGES ?>user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-										<span>John Doe</span>
+										<img  id="imgperfil2" src="<?php echo URL_IMAGES ?>user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
+										<span class="razonsocial"></span>
+										
 										<a href="#" onClick="CerrarSesion()" class="dud-logout" title="Logout">
 											<i class="feather icon-log-out"></i>
 										</a>

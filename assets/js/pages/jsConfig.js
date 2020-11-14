@@ -16,5 +16,7 @@ const v_headers_multipart = {
 }
 
 const v_sesion = {
-    'usuario' : localStorage.getItem("usuario")
+    'usuario' : localStorage.getItem("usuario"),
+    'razonsocial' : localStorage.getItem("razonsocial"),
+    'ruta' : localStorage.getItem("ruta")
 }

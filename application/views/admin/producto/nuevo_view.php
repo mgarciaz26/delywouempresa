@@ -35,13 +35,13 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="floating-label" for="precio">Precio</label>
-                                <input type="number" class="money_example form-control" id="precio" name="precio" placeholder="Ingresa precio" v-model="precio" >
+                                <input type="number" class="form-control" v-on:change="FormatPrecio()" id="precio" name="precio" placeholder="Ingresa precio" v-model="precio" >
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="floating-label" for="descuento">Descuento</label>
-                                <input type="number" class="money_example form-control" id="descuento" name="descuento" placeholder="Ingrese descuento" v-model="descuento" >
+                                <input type="number"  class="form-control"  v-on:change="FormatDescuento()" id="descuento" name="descuento" placeholder="Ingrese descuento" v-model="descuento" >
                             </div>
                         </div>                        
                         <div class="col-sm-6">

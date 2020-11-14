@@ -40,17 +40,20 @@ var frmLogin = new Vue({
     el: '#frmLogin',
     data: {
         usuario: '',
-        contrasena: ''
+        contrasena: '',
+        ruta:'',
+        razonsocial:''
     },
     methods: {
         LimpiarFormulario: function () {
             this.usuario = '',
-            this.contrasena = ''
+            this.contrasena = ''            
         },
         ObtenerDatos: function () {
             return {
                 usuario: this.usuario,
                 contrasena: this.contrasena
+
             }
         },
         IniciarSesion: function () {
@@ -65,8 +68,9 @@ var frmLogin = new Vue({
 							
                             localStorage.setItem(_TOKEN_ADM_VALOR_, respuesta.data[_TOKEN_ADM_VALOR_]);
                             localStorage.setItem("usuario", login.usuario);
-                            
-                            location.href= _URL_DOMINIO_ + `admin/inicio`;
+                            localStorage.setItem("ruta",respuesta.data.ruta);
+                            localStorage.setItem("razonsocial",respuesta.data.razonsocial);                            
+                            location.href= _URL_DOMINIO_ + `admin/inicio`;                            
 
                         }else{
                                                         

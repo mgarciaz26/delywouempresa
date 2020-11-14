@@ -39,14 +39,19 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="row align-items-center m-l-0">
-                            <div class="col-sm-6">
-                            </div>
-                            <div class="col-sm-6 text-right">
-                                <button class="btn btn-secondary btn-sm btn-round has-ripple" data-toggle="modal" data-target="#modal-report"><i class="feather icon-plus"></i> Nuevo</button>
-                            </div>
-                        </div>
-                        
+                        <div id="frmDataFiltros">                            
+                            <div class="row align-items-center m-l-0">
+                                <div class="col-sm-6">
+                                </div>
+                                <!-- <div class="col-sm-6 text-right">
+                                    <button type="button" class="btn btn-secondary btn-sm btn-round has-ripple" data-toggle="modal" data-target="#modal-report"><i class="feather icon-plus"></i> Nuevo</button>
+                                </div> -->
+
+                                <!-- <div class="col-sm-6 text-right">                                
+                                    <button type="button" class="btn btn-secondary btn-sm btn-round has-ripple" data-toggle="modal" data-target="#modal-report-filtro" ><i class="feather icon-filter"></i> Filtrar Por</button>
+                                </div> -->
+                            </div>                             
+                        </div>                                            
                         <?php $this->load->view('admin/inicio/listar_view'); ?>
 
                     </div>
@@ -60,5 +65,6 @@
 <!-- Button trigger modal -->
 
 <?php $this->load->view('admin/inicio/nuevo_view'); ?>
+<?php $this->load->view('admin/inicio/filtro_view'); ?>
 
 <script src="<?php echo URL_JS ?>pages/forms/admin/Inicio.js"></script>

@@ -1,13 +1,15 @@
-
-//ValidarSesion().then(x => {
-
-//ValidarSesion();
-
 var frmPanel = new Vue({
     el: '#frmPanel',
     data: {
         Table: CrearTable(),
-        Combo: CrearCombo()
+        Combo: CrearCombo(),
+        latitudc:'',
+        longitudc:'',
+        latitudt:'',
+        longitudt:''
+        // listaClientes:[],
+        // listaDireccion:[],
+        // listaMedioPago:[]
     },
     methods: {
         AgregarTabla: function (data) {
@@ -34,6 +36,7 @@ var frmPanel = new Vue({
 
         },
         ListarData: function () {
+            
 
             axios.get(_URL_BASE_API_ + `pedido/listar`, {
                 headers: v_headers
@@ -45,6 +48,10 @@ var frmPanel = new Vue({
                     let lstData = respuesta.data.pedido;
                     lstData.forEach(pedido => {
                         this.AgregarTabla(pedido);
+                        frmPanel.latitudc = respuesta.data.pedido.latitudc;
+                        frmPanel.longitudc = respuesta.data.pedido.longitudc;
+                        frmPanel.latitudt = respuesta.data.pedido.latitudt;
+                        frmPanel.longitudc = respuesta.data.pedido.longitudc;
                     });
 
                     this.Table.draw();
@@ -82,8 +89,6 @@ var frmPanel = new Vue({
 
 });
 
-
-
 var frmData = new Vue({
     el: '#frmData',
     data: {
@@ -92,8 +97,11 @@ var frmData = new Vue({
         mediopago: '',
         direccion: '',
         precio: '0.0',        
-        descuento: '0.0',
-        detalle: { nombre: '', imagen: '' }
+        descuento: '0.0', 
+        // listaClientes:[],  
+        // listaDireccion:[],
+        // listaMedioPago:[],     
+        detalle: { nombre: '', imagen: '' }        
     },
     methods: {        
         LimpiarFormulario: function () {
@@ -207,10 +215,9 @@ var frmData = new Vue({
             this.direccion = data.direccion;                      
             this.detalle = data.detalle;
             console.log(this.detalle[0].nombre);
-        }
+        }    
     }
-})
-
+});
 
 function CrearTable() {
     var table = $('#report-table').DataTable(
@@ -241,24 +248,36 @@ function Editar(id) {
     
     if(id>0){
 
-        EditarRegistro()
-            .then((willDelete) => {
-                if (willDelete) {
-                    
-                    axios.get(_URL_BASE_API_ + `pedido/listar/` + id, {
-                    headers: v_headers
-                    }).then(respuesta => {
-                        let data = respuesta.data.pedido[0];
+        axios.get(_URL_BASE_API_ + `pedido/listar/` + id, {
+            headers: v_headers
+            }).then(respuesta => {
+                let data = respuesta.data.pedido[0];
 
-                        console.log(data);
+                console.log(data);
 
-                        $('#modal-report').modal('show');
-                        frmData.Ver(data);
+                $('#modal-report').modal('show');
+                frmData.Ver(data);
 
-                    });
-                    
-                } 
             });
+
+        // EditarRegistro()
+        //     .then((willDelete) => {
+        //         if (willDelete) {
+                    
+        //             axios.get(_URL_BASE_API_ + `pedido/listar/` + id, {
+        //             headers: v_headers
+        //             }).then(respuesta => {
+        //                 let data = respuesta.data.pedido[0];
+
+        //                 console.log(data);
+
+        //                 $('#modal-report').modal('show');
+        //                 frmData.Ver(data);
+
+        //             });
+                    
+        //         } 
+        //     });
 
     }    
 
@@ -353,3 +372,82 @@ function LimpiarFormulario(){
 }
 
 setInterval('frmPanel.ListarData()',30000);
+
+
+function VerMapa(){
+    $('#modal-report-mapa').modal('show');
+    var id = $('#id').val();
+
+    axios.get(_URL_BASE_API_ + `pedido/listar/`+id, {
+        headers: v_headers
+    }).then(respuesta => {
+
+        if (respuesta.data.estado) {
+
+            let lat = respuesta.data.pedido[0].latitudt==""?0:respuesta.data.pedido[0].latitudt;
+            let lon = respuesta.data.pedido[0].longitudt==""?0:respuesta.data.pedido[0].longitudt;
+        
+            let latc = respuesta.data.pedido[0].latitudc==""?0:respuesta.data.pedido[0].latitudc;
+            let lonc = respuesta.data.pedido[0].longitudc==""?0:respuesta.data.pedido[0].longitudc;
+        
+            var map;
+        
+            var directionsService = new google.maps.DirectionsService();
+            var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
+        
+        
+            map = new google.maps.Map(document.getElementById("map"), {
+              center: { lat: Number(lat), lng: Number(lon) },
+              zoom: 14,
+            }) ;
+        
+            directionsDisplay.setMap(map);
+        
+            var markerIconT = "http://localhost:8081/delywouempresa/assets/images/auth/tiendas.png"; 
+            var markerIconC = "http://localhost:8081/delywouempresa/assets/images/auth/Cliente.png"; 
+        
+            if(lon!=0&&lat!=0){
+                var marker = new google.maps.Marker({
+                    position: { lat: Number(lat), lng: Number(lon) },
+                    map: map,
+                    animation: google.maps.Animation.BOUNCE,
+                    draggable: true,
+                    icon:markerIconT
+                  });
+            }    
+        
+            if(lonc!=0 && latc!=0){
+        
+                var marker = new google.maps.Marker({
+                    position: { lat: Number(latc), lng: Number(lonc) },
+                    map: map,
+                    animation: google.maps.Animation.BOUNCE,
+                    draggable: true,
+                    icon:markerIconC
+                  });
+        
+            }
+        
+            
+        
+            directionsService.route({
+                origin: { lat: Number(lat), lng: Number(lon) },
+                destination: { lat: Number(latc), lng: Number(lonc) },
+               // waypoints: waypts,
+                travelMode: google.maps.TravelMode.DRIVING
+            }, function (response, status) {
+                if (status === google.maps.DirectionsStatus.OK) {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Ha fallat la comunicació amb el mapa a causa de: ' + status);
+                }
+            });
+        
+            console.log(map);
+        }
+    });   
+
+}
+
+
+

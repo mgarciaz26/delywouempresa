@@ -151,8 +151,8 @@ var frmData = new Vue({
         categoria: '',
         nombre: '',
         imagen: '',
-        precio: '0.0',        
-        descuento: '0.0',
+        precio: 0.0,        
+        descuento: 0.0,
         detalle: ''
     },
     methods: {        
@@ -161,8 +161,8 @@ var frmData = new Vue({
             this.categoria = '',
             this.nombre = '',
             this.imagen = '',
-            this.precio = '0.0',            
-            this.descuento = '0.0',
+            this.precio = 0.0,            
+            this.descuento = 0.0,
             this.detalle = ''
         },
         ObtenerDatos: function () {
@@ -171,23 +171,24 @@ var frmData = new Vue({
                 categoria: $("#categoria").val(),
                 nombre: this.nombre,
                 imagen: this.imagen,
-                precio: this.precio,   
-                descuento: this.descuento,
+                precio: this.precio.toFixed(2),   
+                descuento: this.descuento.toFixed(2),
                 detalle: this.detalle
             }
         },
-        FormatoDecimal: function (){
+        // FormatoDecimal: function (){
 
-            this.precio = this.precio.toFixed(2);
-            this.descuento = this.descuento.toFixed(2);
+        //     this.precio = this.precio.toFixed(2);
+        //     this.descuento = this.descuento.toFixed(2);
 
-        },
+        // },
         GuardarDatos: function () {
             
-            //let producto = this.ObtenerDatos();
+            // let producto = this.ObtenerDatos();
             //this.FormatoDecimal();
 
             let producto = new FormData($("#frmData")[0]);
+
             
             axios.post( _URL_BASE_API_ + `producto/guardar` , producto,{
                 headers: v_headers_multipart
@@ -235,9 +236,19 @@ var frmData = new Vue({
             this.descuento = data.descuento.toFixed(2);            
             this.detalle = data.detalle;
             $("#categoria option[value="+ data.categoria_id +"]").attr("selected",true);                     
+        },
+        FormatPrecio : function(){
+            // var $this = $(this.precio);            
+            this.precio = parseFloat(this.precio).toFixed(2); 
+        },
+        FormatDescuento : function(){
+            // var $this = $(this.descuento);
+            this.descuento = parseFloat(this.descuento).toFixed(2); 
         }
+
     }
 })
+
 
 
 function CrearTable() {
@@ -331,16 +342,17 @@ function LimpiarFormulario(){
     frmData.LimpiarFormulario();
 }
 
-//$('.money_example').mask('0.00');
+// $("#precio").change(function() {
+//     var $this = $(this);
+//     $this.val(parseFloat($this.val()).toFixed(2));        
+// });
 
-$("#precio").change(function() {
-    var $this = $(this);
-    $this.val(parseFloat($this.val()).toFixed(2));        
-});
+// $("#descuento").change(function() {
+//     var $this = $(this);
+//     $this.val(parseFloat($this.val()).toFixed(2));        
+// });
 
-$("#descuento").change(function() {
-    var $this = $(this);
-    $this.val(parseFloat($this.val()).toFixed(2));        
-});
+
+
 
 //});

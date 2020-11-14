@@ -34,7 +34,7 @@
                             <img src="<?php echo URL_IMAGES ?>model/able-admin.jpg" class="img-fluid mt-0" alt="images">
                         </div>
                         <!-- <div class="carousel-item" data-interval="50000">
-                            <img src="<?php echo URL_IMAGES ?>model/welcome.svg" class="wid-250 my-4" alt="images">
+                            <img src="< ?php echo URL_IMAGES ?>model/welcome.svg" class="wid-250 my-4" alt="images">
                             <div class="row justify-content-center">
                                 <div class="col-md-8">
                                     <p class="f-16"><strong>Able pro v8.0</strong> will come with new Structure.</p>

@@ -16,6 +16,7 @@ class Pedido extends CI_Controller {
         $data['titulo_nuevo'] = 'Nueva pedido';
         $data['titulo_lista'] = 'Lista de pedidos para hoy';
         $data['titulo_nuevo_mapa'] = 'Agregar mapa producto';
+        $data['titulo_filtro'] = 'Filtro de Datos';
         $this->load->view('master/plantilla_view', $data);
         
     }
