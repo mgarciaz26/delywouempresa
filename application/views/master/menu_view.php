@@ -28,12 +28,12 @@
 							<li><a href="<?php echo URL_MAIN_ADMIN ?>producto">Producto</a></li>							
 						</ul>
 					</li>
-					<li class="nav-item pcoded-hasmenu">
+					<!-- <li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-mail"></i></span><span class="pcoded-mtext">Bandeja de entrada</span></a>
 						<ul class="pcoded-submenu">
-							<li><a href="<?php echo URL_MAIN_ADMIN ?>pedido">Pedido</a></li>
+							<li><a href="< ?php echo URL_MAIN_ADMIN ?>pedido">Pedido</a></li>
 						</ul>
-					</li>
+					</li> -->
 					<li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-mail"></i></span><span class="pcoded-mtext">Reportes</span></a>
 						<ul class="pcoded-submenu">
@@ -44,7 +44,7 @@
 						<a href="#!" class="nav-link" ><span class="pcoded-micon"><i class="feather icon-settings"></i></span><span class="pcoded-mtext">Configuración</span></a>
 						<ul class="pcoded-submenu">
 							<li><a href="<?php echo URL_MAIN_ADMIN ?>perfil">Perfil</a></li>
-							<li><a href="<?php echo URL_MAIN_ADMIN ?>horario">Horario</a></li>
+							<!-- <li><a href="< ?php echo URL_MAIN_ADMIN ?>horario">Horario</a></li> -->
 						</ul>
 					</li>
 				</ul>
