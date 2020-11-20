@@ -12,8 +12,13 @@ var frmData = new Vue({
         imagenportada:'',
         latitud:0,
         longitud:0,
+        departamento:'',
         contrasenia:'',
-        repcontrasenia:''        
+        repcontrasenia:'' ,
+        estadonegocio:0,
+        cantproductos:0,
+        cantpedidos :0,
+        cantclientes :0       
     },
     methods: {
         LimpiarFormulario: function () {
@@ -40,7 +45,23 @@ var frmData = new Vue({
                     this.imagenportada = data.imagenportada;
                     this.estadodesc = data.estado==1?"Abierto":"Cerrado";      
                     this.latitud = data.latitud;
-                    this.longitud = data.longitud;        
+                    this.longitud = data.longitud;
+                    this.departamento = data.departamento;   
+                    this.estadonegocio = data.estadonegocio;  
+                    this.cantproductos = data.cantproductos;
+                    this.cantpedidos = data.cantpedidos;
+                    this.cantclientes = data.cantclientes;
+                    
+                    // $("h4#producto").text(''+data.cantproductos);
+                    // $("h4#pedido").text(''+data.cantpedidos);
+                    // $("h4#cliente").text(''+data.cantclientes);
+
+                    if(data.estadonegocio==1)
+                    {                        
+                        $("#modal-report-contrasenia").modal('show');
+                        $("#estado1").show();
+                        $("#estado0").hide();
+                    }
                 });
                 
         },
@@ -176,6 +197,11 @@ var frmImagen = new Vue({
                             console.log(reg);
 
                             frmData.imagen = reg.imagen;
+                            localStorage.setItem("ruta",reg.imagen);
+                            setTimeout(() => location.reload(), 1000);
+                            // v_sesion.ruta = reg.imagen;
+                            
+
 
                             MensajeAlerta('Datos ingresados correctamente','success');                            
                         }else{                            
@@ -314,26 +340,76 @@ function CargarImagen(){
 function LocalizarDireccion() {
 
     $('#modal-report').modal("show");
+    // frmData.ListarData();
 
 
-    let lat = frmData.latitud;
-    let lon = frmData.longitud;
+    axios.get(_URL_BASE_API_ + `perfil/listar/`,{
+        headers: v_headers
+        }).then(respuesta => {                    
+            let data = respuesta.data.perfil; 
 
-    var map;
-  
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: Number(lat), lng: Number(lon) },
-      zoom: 14,
-    }) ;
-  
-    var marker = new google.maps.Marker({
-      position: { lat: Number(lat), lng: Number(lon) },
-      map: map,
-      animation: google.maps.Animation.BOUNCE,
-      draggable: true,
-    });
-  
-    console.log(map);
+            frmData.departamento = data.departamento;        
+
+    if(frmData.latitud=="" && frmData.longitud==""){
+
+    
+      //frmData.ListarData();
+      var direccion = frmData.departamento;
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+      params:{
+        address:direccion,
+        key:'AIzaSyAPHvOG40vPTOQvsifMNZPY_eOW38QJ2c4'
+       }
+      })
+      .then(function(response){         
+        let lats = response.data.results[0].geometry.location.lat;
+        let lons = response.data.results[0].geometry.location.lng;
+
+        let map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: lats, lng: lons },
+            zoom: 9
+        });
+    
+        var marker = new google.maps.Marker({
+          position: { lat: Number(lats), lng: Number(lons) },
+          map: map,
+          animation: google.maps.Animation.BOUNCE,
+          draggable: true,
+        });
+
+      }).catch(function(error){
+          console.log(error);
+      });
+    }
+    else {
+
+        lat = frmData.latitud;
+        lon = frmData.longitud;
+
+
+        var map;
+        
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: Number(lat), lng: Number(lon) },
+          zoom: 17,
+        }) ;
+    
+        var marker = new google.maps.Marker({
+          position: { lat: Number(lat), lng: Number(lon) },
+          map: map,
+          animation: google.maps.Animation.BOUNCE,
+          draggable: true,
+        });
+    
+        console.log(map);
+
+    }
+});
+
+
+    // });
+
+    
   
     //   axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
     //   params:{
@@ -418,8 +494,10 @@ function LocalizarDireccion() {
                         if (respuesta.data.estado){
                         
                             let reg = respuesta.data.perfil;
-                            frmData.latitud = reg.latitud;
-                            frmData.longitud = reg.longitud;
+                            // frmData.latitud = reg.latitud;
+                            // frmData.longitud = reg.longitud;
+                            frmData.latitud = reg.sedi_latitud;
+                            frmData.longitud = reg.sedi_longitud;                            
 
                             MensajeAlerta('Datos ingresados correctamente','success');
                             
@@ -505,7 +583,8 @@ var frmCambiarContrsenia = new Vue({
 el:'#frmCambiarContrasenia',
 data:{
     contrasenia:'',
-    repcontrasenia:''
+    repcontrasenia:'',
+    estadonegocio: 1 
 },
 methods:{
     LimpiarFormulario: function () {        
@@ -524,7 +603,7 @@ methods:{
                     if (respuesta.data.estado){                    
                         let reg = respuesta.data.perfil;
                         console.log(reg);
-                        MensajeAlerta('Datos ingresados correctamente','success');  
+                        MensajeAlerta('Datos ingresados correctamente','success');                          
                         $('#modal-report-contrasenia').modal('hide');										
                     }else{                            
                         MensajeAlerta(respuesta.data.perfil[0].mensaje,'error');
@@ -537,12 +616,34 @@ methods:{
 }
 
 });
-
-  
-
   function CambiarContrasenia(){    
-    $('#modal-report-contrasenia').modal('show');
+    
+    if(frmData.estadonegocio==1){        
 
+        let contrasenia = new FormData($("#frmCambiarContrasenia")[0]);        
+        axios.post( _URL_BASE_API_ + `perfil/guardarcontrasenia` , contrasenia,{
+            headers: v_headers
+        })
+                .then(respuesta => {                        
+
+                    if (respuesta.data.estado){                    
+                        let reg = respuesta.data.perfil;
+                        console.log(reg);
+                        MensajeAlerta('Datos ingresados correctamente','success');                          
+                        $('#modal-report-contrasenia').modal('hide');										
+                    }else{                            
+                        MensajeAlerta(respuesta.data.perfil[0].mensaje,'error');
+                    }                    
+                }).catch(error=>{
+                    console.log(error);
+                });
+    }    
+    else {
+
+        $("#estado0").show();
+        $("#estado1").hide();
+
+        $('#modal-report-contrasenia').modal('show');
     $("#frmCambiarContrasenia").validate({
         submitHandler: function () {
             frmCambiarContrsenia.GuardarDatos();            
@@ -567,5 +668,12 @@ methods:{
         }
     });
 
+    }
 
   }
+
+
+//   function CambiarContrseñaIncio(){
+
+//   }
+

@@ -525,4 +525,41 @@ function VerMapa(){
 }
 
 
+var frmContadores = new Vue({
+    el:'#frmContadores',
+    data:{
+        cantproductos:0,
+        cantpedidos :0,
+        cantclientes :0
+    },
+    methods:{
+        LimpiarFormulario: function () {        
+            this.motivo = '', 
+            this.id = ''    
+        },
+        GuardarDatosCant:function(){
+
+            axios.get(_URL_BASE_API_ + `perfil/listar/`,{
+                headers: v_headers
+                }).then(respuesta => {                    
+                    let data = respuesta.data.perfil;                                       
+                    this.cantproductos = data.cantproductos;
+                    this.cantpedidos = data.cantpedidos;
+                    this.cantclientes = data.cantclientes;                    
+                    $("h4#producto").text(''+data.cantproductos);
+                    $("h4#pedido").text(''+data.cantpedidos);
+                    $("h4#cliente").text(''+data.cantclientes);  
+                    
+                    // $("h4#producto").text(''+data.cantproductos);
+                    // $("h4#pedido").text(''+data.cantpedidos);
+                    // $("h4#cliente").text(''+data.cantclientes);  
+                });
+            
+        }
+    }
+});
+
+frmContadores.GuardarDatosCant();
+
+
 

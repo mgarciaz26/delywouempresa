@@ -65,6 +65,9 @@ var frmPanel = new Vue({
     data: {
         Table: CrearTable(),
         Combo: CrearCombo()
+        // listaClientes:[{}],
+        // listaDireccion:[{}],
+        // listamediopago:[{}]
     },
     methods: {
         AgregarTabla: function (data) {
@@ -150,6 +153,9 @@ var frmData = new Vue({
         precio: '0.0',        
         descuento: '0.0',
         detalle: ''
+        // listaClientes:[{}],
+        // listaDireccion:[{}],
+        // listamediopago:[{}]
     },
     methods: {        
         LimpiarFormulario: function () {

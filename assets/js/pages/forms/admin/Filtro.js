@@ -57,50 +57,50 @@ var frmDataFiltros = new Vue({
                 client:this.descripcionC,
                 mediop:this.descripcionMP
             }
-        },
-        Recepcionar:function(){
+        }
+        // Recepcionar:function(){
 
-            let combos = this.ObtenerDatosCombos();
-            axios.post(_URL_BASE_API_ + `pedido/listarporcampo`,combos,{
-                headers: v_headers
-            }).then(respuesta => {
+        //     let combos = this.ObtenerDatosCombos();
+        //     axios.post(_URL_BASE_API_ + `pedido/listarporcampo`,combos,{
+        //         headers: v_headers
+        //     }).then(respuesta => {
 
-                if (respuesta.data.estado) {
+        //         if (respuesta.data.estado) {
 
-                    // this.Table.clear();
-                    $('#report-table').DataTable().clear();
-                    let lstData = respuesta.data.pedido;
-                    lstData.forEach(pedido => {
-                        console.log(pedido);
-                        this.AgregarTabla(pedido);
-                    });
+        //             // this.Table.clear();
+        //             $('#report-table').DataTable().clear();
+        //             let lstData = respuesta.data.pedido;
+        //             lstData.forEach(pedido => {
+        //                 console.log(pedido);
+        //                 this.AgregarTabla(pedido);
+        //             });
 
-                    $('#report-table').DataTable().draw();
+        //             $('#report-table').DataTable().draw();
 
-                }else{
+        //         }else{
 
-                    // this.Table.clear();
+        //             // this.Table.clear();
                     
-                    // this.Table.draw();
+        //             // this.Table.draw();
 
-                }
-                $('#modal-report-filtro').modal('hide');
-            });
+        //         }
+        //         $('#modal-report-filtro').modal('hide');
+        //     });
 
             
-        },
-        AgregarTabla: function (data) {
-            // this.Table.
-            $('#report-table').DataTable().
-            row.add(
-                [data.cliente,                    
-                data.direccion,
-                data.mediopago,
-                data.estado == 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">Inactivo</span>',
-                '<a href="#!" id="editar" onClick="Editar(' + data.id + ')" ><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>' +
-                '<a href="#!" onClick="Eliminar(' + data.id + ')" ><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>'
-            ]);
-        }      
+        // },
+        // AgregarTabla: function (data) {
+        //     // this.Table.
+        //     $('#report-table').DataTable().
+        //     row.add(
+        //         [data.cliente,                    
+        //         data.direccion,
+        //         data.mediopago,
+        //         data.estado == 1 ? '<span class="badge badge-success">Activo</span>' : '<span class="badge badge-danger">Inactivo</span>',
+        //         '<a href="#!" id="editar" onClick="Editar(' + data.id + ')" ><i class="icon feather icon-edit f-w-600 f-16 m-r-15 text-c-green"></i></a>' +
+        //         '<a href="#!" onClick="Eliminar(' + data.id + ')" ><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>'
+        //     ]);
+        // }      
         
     }  
 });
