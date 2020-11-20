@@ -161,9 +161,10 @@ var frmData = new Vue({
             this.categoria = '',
             this.nombre = '',
             this.imagen = '',
-            this.precio = 0.0,            
-            this.descuento = 0.0,
+            this.precio = (0).toFixed(2),
+            this.descuento = (0).toFixed(2),
             this.detalle = ''
+            $("#imagenes").val(null);
         },
         ObtenerDatos: function () {
             return {

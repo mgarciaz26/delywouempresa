@@ -23,12 +23,12 @@
 
         <div id="frmContadores">
             <div class="row">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4 id="producto" class="text-c-red"></h4>
+                                <h4 id="producto" class="text-c-green"></h4>
                                 <h6 class="text-muted m-b-0">Productos</h6>
                             </div>
                             <div class="col-4 text-right">
@@ -36,7 +36,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer bg-c-red">
+                    <div class="card-footer bg-c-green">
                         <div class="row align-items-center">
                             <div class="col-9">
                                 <!-- <p class="text-white m-b-0">% change</p> -->
@@ -49,7 +49,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -58,7 +58,7 @@
                                 <h6 class="text-muted m-b-0">Pedidos</h6>
                             </div>
                             <div class="col-4 text-right">
-                                <i class="feather icon-calendar f-28"></i>
+                                <i class="feather icon-shopping-cart f-28"></i>
                             </div>
                         </div>
                     </div>
@@ -75,12 +75,12 @@
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h4  id="cliente" class="text-c-red"></h4>
+                                <h4  id="cliente" class="text-c-yellow"></h4>
                                 <h6 class="text-muted m-b-0">Clientes</h6>
                             </div>
                             <div class="col-4 text-right">
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-footer bg-c-red">
+                    <div class="card-footer bg-c-yellow">
                         <div class="row align-items-center">
                             <div class="col-9">
                                 <!-- <p class="text-white m-b-0">% change</p> -->
