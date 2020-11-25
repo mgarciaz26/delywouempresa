@@ -34,7 +34,7 @@
                                                         aria-haspopup="true" aria-expanded="false">
                                                         <div class="profile-dp">
                                                             <img class="img-radius img-fluid wid-100"
-                                                                v-bind:src="imagen" alt="User image">
+                                                                v-bind:src="imagen" alt="User image" style="height: 100px;width: 100px;">
                                                             <div class="overlay">
                                                                 <span>Cambiar</span>
                                                             </div>

@@ -51,7 +51,7 @@ var frmPanel = new Vue({
                         frmPanel.latitudc = respuesta.data.pedido.latitudc;
                         frmPanel.longitudc = respuesta.data.pedido.longitudc;
                         frmPanel.latitudt = respuesta.data.pedido.latitudt;
-                        frmPanel.longitudc = respuesta.data.pedido.longitudc;
+                        frmPanel.longitudc = respuesta.data.pedido.longitudc;                        
                     });
 
                     this.Table.draw();

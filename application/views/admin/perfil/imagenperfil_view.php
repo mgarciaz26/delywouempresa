@@ -21,7 +21,7 @@
                     </div>                    
             </div>
             <div class="modal-footer">                        
-                            <button class="btn btn-primary"><i class="feather mr-2 icon-save"></i> Guardar</button>                        
+                            <button type="button" v-on:click="GuardarDatos"  class="btn btn-primary"><i class="feather mr-2 icon-save"></i> Guardar</button>                        
                     </div>
             </form>
         </div>
