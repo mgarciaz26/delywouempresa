@@ -47,7 +47,7 @@ var frmData = new Vue({
                     this.latitud = data.latitud;
                     this.longitud = data.longitud;
                     this.departamento = data.departamento;   
-                    this.estadonegocio = data.estadonegocio;  
+                    // this.estadonegocio = data.estadonegocio;  
                     this.cantproductos = data.cantproductos;
                     this.cantpedidos = data.cantpedidos;
                     this.cantclientes = data.cantclientes;
@@ -56,12 +56,12 @@ var frmData = new Vue({
                     // $("h4#pedido").text(''+data.cantpedidos);
                     // $("h4#cliente").text(''+data.cantclientes);
 
-                    if(data.estadonegocio==1)
-                    {                        
-                        $("#modal-report-contrasenia").modal('show');
-                        $("#estado1").show();
-                        $("#estado0").hide();
-                    }
+                    // if(data.estadonegocio==1)
+                    // {                        
+                    //     $("#modal-report-contrasenia").modal('show');
+                    //     $("#estado1").show();
+                    //     $("#estado0").hide();
+                    // }
                 });
                 
         },
@@ -224,40 +224,6 @@ var frmImagen = new Vue({
 })
 
 
-function CargarImagen(){    
-
-    // console.log('estoy en perfil');
-
-    $('#modalreport').modal("show");
-
-
-    $("#frmData").validate({
-        submitHandler: function () {
-            frmImagen.GuardarDatos();            
-        },        
-        errorPlacement: function errorPlacement(error, element) {
-            var $parent = $(element).parents('.form-group');
-            if ($parent.find('.jquery-validation-error').length) {
-                return;
-            }
-            $parent.append(error.addClass('jquery-validation-error small form-text invalid-feedback'));
-        },
-        highlight: function (element) {
-            var $el = $(element);
-            var $parent = $el.parents('.form-group');
-            $el.addClass('is-invalid');
-            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
-                $el.parent().addClass('is-invalid');
-            }
-        },
-        unhighlight: function (element) {
-            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
-        }
-    });
-
-}
-
-
 
 function CrearTable() {
     var table = $('#report-table').DataTable(
@@ -338,38 +304,38 @@ function Eliminar(id) {
 
 }
 
-// function CargarImagen(){    
+function CargarImagen(){    
 
-//     console.log('estoy en perfil');
+    console.log('estoy en perfil');
 
-//     $('#modalreport').modal("show");
+    $('#modalreport').modal("show");
 
 
-//     $("#frmData").validate({
-//         submitHandler: function () {
-//             frmImagen.GuardarDatos();            
-//         },        
-//         errorPlacement: function errorPlacement(error, element) {
-//             var $parent = $(element).parents('.form-group');
-//             if ($parent.find('.jquery-validation-error').length) {
-//                 return;
-//             }
-//             $parent.append(error.addClass('jquery-validation-error small form-text invalid-feedback'));
-//         },
-//         highlight: function (element) {
-//             var $el = $(element);
-//             var $parent = $el.parents('.form-group');
-//             $el.addClass('is-invalid');
-//             if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
-//                 $el.parent().addClass('is-invalid');
-//             }
-//         },
-//         unhighlight: function (element) {
-//             $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
-//         }
-//     });
+    $("#frmData").validate({
+        submitHandler: function () {
+            frmImagen.GuardarDatos();            
+        },        
+        errorPlacement: function errorPlacement(error, element) {
+            var $parent = $(element).parents('.form-group');
+            if ($parent.find('.jquery-validation-error').length) {
+                return;
+            }
+            $parent.append(error.addClass('jquery-validation-error small form-text invalid-feedback'));
+        },
+        highlight: function (element) {
+            var $el = $(element);
+            var $parent = $el.parents('.form-group');
+            $el.addClass('is-invalid');
+            if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                $el.parent().addClass('is-invalid');
+            }
+        },
+        unhighlight: function (element) {
+            $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+        }
+    });
 
-// }
+}
 
 function LocalizarDireccion() {
 

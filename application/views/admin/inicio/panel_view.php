@@ -151,6 +151,7 @@
 
 <?php $this->load->view('admin/inicio/nuevo_view'); ?>
 <?php $this->load->view('admin/pedido/motivo_view'); ?>
+<?php $this->load->view('admin/perfil/cambiarcontrasenia_view'); ?>
 <!-- < ?php $this->load->view('admin/inicio/filtro_view'); ?> -->
 
 <script src="<?php echo URL_JS ?>pages/forms/admin/Inicio.js"></script>

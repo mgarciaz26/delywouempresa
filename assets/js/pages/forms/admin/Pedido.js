@@ -445,3 +445,99 @@ $("#descuento").change(function() {
 });
 
 //});
+
+
+
+
+var frmCambiarContrsenia = new Vue({
+    el:'#frmCambiarContrasenia',
+    data:{
+        contrasenia:'',
+        repcontrasenia:'',
+        estadonegocio: 1 
+    },
+    methods:{
+        LimpiarFormulario: function () {        
+            this.contrasenia = '',
+            this.repcontrasenia = ''        
+        },
+        GuardarDatos:function(){
+    
+            let contrasenia = new FormData($("#frmCambiarContrasenia")[0]);
+    
+            axios.post( _URL_BASE_API_ + `perfil/guardarcontrasenia` , contrasenia,{
+                headers: v_headers
+            })
+                    .then(respuesta => {                        
+    
+                        if (respuesta.data.estado){                    
+                            let reg = respuesta.data.perfil;
+                            console.log(reg);
+                            MensajeAlerta('Datos ingresados correctamente','success');                          
+                            $('#modal-report-contrasenia').modal('hide');										
+                        }else{                            
+                            MensajeAlerta(respuesta.data.perfil[0].mensaje,'error');
+                        }                    
+                    }).catch(error=>{
+                        console.log(error);
+                    });
+            this.LimpiarFormulario(); 
+        }
+    }
+    
+    });
+      function CambiarContrasenia(){    
+        
+        if(frmData.estadonegocio==1){        
+    
+            let contrasenia = new FormData($("#frmCambiarContrasenia")[0]);        
+            axios.post( _URL_BASE_API_ + `perfil/guardarcontrasenia` , contrasenia,{
+                headers: v_headers
+            })
+                    .then(respuesta => {                        
+    
+                        if (respuesta.data.estado){                    
+                            let reg = respuesta.data.perfil;
+                            console.log(reg);
+                            MensajeAlerta('Datos ingresados correctamente','success');                          
+                            $('#modal-report-contrasenia').modal('hide');										
+                        }else{                            
+                            MensajeAlerta(respuesta.data.perfil[0].mensaje,'error');
+                        }                    
+                    }).catch(error=>{
+                        console.log(error);
+                    });
+        }    
+        else {
+    
+            $("#estado0").show();
+            $("#estado1").hide();
+    
+            $('#modal-report-contrasenia').modal('show');
+        $("#frmCambiarContrasenia").validate({
+            submitHandler: function () {
+                frmCambiarContrsenia.GuardarDatos();            
+            },        
+            errorPlacement: function errorPlacement(error, element) {
+                var $parent = $(element).parents('.form-group');
+                if ($parent.find('.jquery-validation-error').length) {
+                    return;
+                }
+                $parent.append(error.addClass('jquery-validation-error small form-text invalid-feedback'));
+            },
+            highlight: function (element) {
+                var $el = $(element);
+                var $parent = $el.parents('.form-group');
+                $el.addClass('is-invalid');
+                if ($el.hasClass('select2-hidden-accessible') || $el.attr('data-role') === 'tagsinput') {
+                    $el.parent().addClass('is-invalid');
+                }
+            },
+            unhighlight: function (element) {
+                $(element).parents('.form-group').find('.is-invalid').removeClass('is-invalid');
+            }
+        });
+    
+        }
+    
+      }
