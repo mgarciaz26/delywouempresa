@@ -83,7 +83,7 @@ var frmPanel = new Vue({
         },
         AgregarCombo: function (data) {
             
-                console.log(data);
+                // console.log(data);
 
                 var option = $("<option/>", {
                    value: data.id,
