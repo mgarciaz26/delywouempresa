@@ -99,5 +99,6 @@
 </div>
 
 <?php $this->load->view('admin/perfil/imagenperfil_view'); ?>
+
 <?php $this->load->view('admin/perfil/imagenportada_view'); ?>
 <?php $this->load->view('admin/perfil/cambiarcontrasenia_view'); ?>

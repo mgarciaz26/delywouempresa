@@ -673,7 +673,3 @@ methods:{
   }
 
 
-//   function CambiarContrseñaIncio(){
-
-//   }
-

@@ -8,35 +8,45 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>            
-            <div id="frmData">
+            <div id="frmDataFiltro">
                 <div class="modal-body">
 
                     <!-- <input type="hidden" id="id" name="id" v-model="id"> -->
-                    <div class="row">                        
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="floating-label">Direccion</label>
+                    <div class="row">                                        
+                        <!-- <div class="col-md-12">
+                            <div class="form-group fill">
+                                <label style="color: red;font-size: 0.75rem;top: -10px;" class="floating-label">Direccion</label>
                                 <select class="form-control"  v-on:change="onChangeDireccion($event)">                                    
                                     <option v-for="item in listaDireccion" v-text="item.direccion" :value="item.direccion_Id"></option>
                                 </select>
                             </div>
-                        </div>    
+                        </div>     -->
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="floating-label">Clientes</label>
-                                <select class="form-control"  v-on:change="onChangeCliente($event)">                                    
-                                    <option v-for="item in listaClientes" :value="item.cliente_id" v-text="item.Nombres"></option>                                    
+                            <div class="form-group fill">
+                                <label style="color: red;font-size: 0.75rem;top: -10px;" class="floating-label">Estado</label>
+                                <select class="form-control"  v-on:change="onChangeEstado($event)">                                    
+                                    <option v-for="item in ListaEstado" :value="item.estado" v-text="item.descripcion"></option>                                    
                                 </select>
                             </div>
                         </div>                    
                         <div class="col-sm-12">
                             <div class="form-group">
-                            <label class="floating-label">Medio Pago</label>
+                            <label style="color: red;font-size: 0.75rem;top: -10px;" class="floating-label">Medio Pago</label>
                                 <select class="form-control"  v-on:change="onChangeMedioPago($event)">                                                                        
                                     <option v-for="item in listamediopago" :value="item.mediopago_id" v-text="item.mediopago"></option>                                    
                                 </select>                                
                             </div>
-                        </div>                                                    
+                        </div> 
+                        <div class="col-md-12">
+                            <div class="form-group">                            
+                                <label style="color: red;font-size: 0.75rem;top: -10px;">Fecha Inicio:</label>
+                                <input style="margin-left: 10px;margin-right: 30px;" type="date" v-model="mydateInicio" id="finicio" name="finicio" value="2020-07-22" min="2020-01-01" max="2018-12-30">
+
+                                <label style="color: red;font-size: 0.75rem;top: -10px;">Fecha Fin:</label>
+                                <input style="margin-left: 10px;" type="date" v-model="mydateFin" id="ffin" name="ffin" value="2020-07-22" min="2020-01-01" max="2020-12-30">
+                            </div>                            
+                        </div>  
+
                     </div>
                 </div>
                 <div class="modal-footer">                
@@ -48,4 +58,4 @@
 </div>
 
 
-<script src="<?php echo URL_JS ?>pages/forms/admin/Filtro.js"></script>
+<!-- <script src="< ?php echo URL_JS ?>pages/forms/admin/Filtro.js"></script> -->

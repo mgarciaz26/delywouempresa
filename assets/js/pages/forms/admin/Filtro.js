@@ -1,14 +1,14 @@
 
 var frmDataFiltros = new Vue({
     el:'#modal-report-filtro',
-    data:{
-        // id:0,        
+    data:{        
         listaClientes:[],
         listaDireccion:[],
         listamediopago:[],
         descripcionD:'',
         descripcionC:'',
         descripcionMP:'',
+        id:0
         // Table: CrearTable()
     },   
     methods:{           
@@ -105,9 +105,10 @@ var frmDataFiltros = new Vue({
     }  
 });
 
-frmDataFiltros.ComboMedioPago();
-frmDataFiltros.ComboCliente();
-frmDataFiltros.ComboDireccion();
+// frmDataFiltros.ComboCliente();
+// frmDataFiltros.ComboDireccion();
+// frmDataFiltros.ComboMedioPago();
+
 // frmDataFiltros.Recepcionar();
 
 

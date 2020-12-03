@@ -6,7 +6,8 @@ var frmPanel = new Vue({
         latitudc:'',
         longitudc:'',
         latitudt:'',
-        longitudt:''
+        longitudt:'',
+        id:0
         // listaClientes:[],
         // listaDireccion:[],
         // listaMedioPago:[]
@@ -25,16 +26,16 @@ var frmPanel = new Vue({
                 '<a href="#!" onClick="Eliminar(' + data.id + ')" ><i class="feather icon-trash-2 f-w-600 f-16 text-c-red"></i></a>'
             ]);
         },
-        AgregarCombo: function (data) {
+        // AgregarCombo: function (data) {
             
-                var option = $("<option/>", {
-                   value: data.id,
-                   text: data.nombre
-                });
+        //         var option = $("<option/>", {
+        //            value: data.id,
+        //            text: data.nombre
+        //         });
 
-                $("#categoria").append(option);
+        //         $("#categoria").append(option);
 
-        },
+        // },
         ListarData: function () {
             
 
@@ -531,7 +532,8 @@ var frmContadores = new Vue({
         cantproductos:0,
         cantpedidos :0,
         cantclientes :0,
-        estadonegocio:0
+        estadonegocio:0,
+        id:0
     },
     methods:{
         LimpiarFormulario: function () {        
@@ -576,7 +578,8 @@ var frmCambiarContrsenia = new Vue({
     data:{
         contrasenia:'',
         repcontrasenia:'',
-        estadonegocio: 1 
+        estadonegocio: 1 ,
+        id:0
     },
     methods:{
         LimpiarFormulario: function () {        

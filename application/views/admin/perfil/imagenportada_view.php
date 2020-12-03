@@ -1,7 +1,3 @@
-<!-- <div class="modal fade" id="mymodal" role="dialog" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <h1>Hola Mundo</h1>
-</div> -->
-
 <div class="modal fade" id="modalreportportada" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -27,6 +23,7 @@
             <div class="modal-footer">                        
                             <button type="button"  v-on:click="GuardarDatos()" class="btn btn-primary"><i class="feather mr-2 icon-save"></i> Guardar</button>                        
                     </div>
+
             </form>
         </div>
     </div>

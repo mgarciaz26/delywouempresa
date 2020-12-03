@@ -87,6 +87,7 @@ var frmImagenPortada = new Vue({
                 imagenportada: this.imagenportada                
             }
         },        
+        
         GuardarDatos: function () {   
 
             let perfil = new FormData($("#frmImagenPortada")[0]);
@@ -100,10 +101,7 @@ var frmImagenPortada = new Vue({
 
                         if (respuesta.data.estado){
                         
-                            let reg = respuesta.data.perfil;
-
-                            // console.log(reg);
-
+                            let reg = respuesta.data.perfil;                        
                             frmData.imagenportada = reg.imagenportada;
                                                       
                             MensajeAlerta('Datos ingresados correctamente','success');
@@ -158,5 +156,3 @@ function CargarImagenPortada(){
     });
 
 }
-
-// frmData.ListarData();
