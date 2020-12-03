@@ -185,9 +185,6 @@ var frmData = new Vue({
         // },
         GuardarDatos: function () {
             
-            // let producto = this.ObtenerDatos();
-            //this.FormatoDecimal();
-
             let producto = new FormData($("#frmData")[0]);
 
             
@@ -195,6 +192,7 @@ var frmData = new Vue({
                 headers: v_headers_multipart
             })
 					.then(respuesta => {                        
+
 
                         if (respuesta.data.estado){
                         

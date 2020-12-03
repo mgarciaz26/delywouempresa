@@ -47,6 +47,7 @@
                             </div>
                         </div>
                         
+                        
                         <?php $this->load->view('admin/producto/listar_view'); ?>
 
                     </div>
