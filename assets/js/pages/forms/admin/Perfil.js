@@ -536,19 +536,43 @@ function LocalizarDireccion() {
       var lat = response.data.results[0].geometry.location.lat;
       var lng = response.data.results[0].geometry.location.lng;
 
-      var departamento = response.data.results[0].address_components[3].long_name;
-      var provincia = response.data.results[0].address_components[2].long_name;
-      var distrito = response.data.results[0].address_components[1].long_name;
-      var pais = response.data.results[0].address_components[4].long_name;
-      var codigopostal = response.data.results[0].address_components[5].long_name;
+        const geocoder = new google.maps.Geocoder();
+        geocoder.geocode(
+        { location: { lat: Number(lat), lng: Number(lng) } },
+        (
+            results,
+            status
+        ) => {
+            if (status === 'OK') {
+            if (results[0]) {
 
-      
-    
-      frmUbicacion.latitud = lat;
-      frmUbicacion.longitud = lng;
-      frmUbicacion.lugar = departamento+', '+pais;
-      frmUbicacion.nombre = provincia;
-      frmUbicacion.departamento = departamento;
+                var lugar = results[5].formatted_address;
+                // var provincia = response.data.results[0].address_components[2].long_name;
+                // var distrito = response.data.results[0].address_components[1].long_name;
+                // var pais = response.data.results[0].address_components[4].long_name;
+                // var codigopostal = response.data.results[0].address_components[5].long_name;
+
+                
+                
+                frmUbicacion.latitud = lat;
+                frmUbicacion.longitud = lng;
+                frmUbicacion.lugar = lugar;
+                frmUbicacion.nombre = direccion;
+                frmUbicacion.departamento = '';
+                
+
+                //this.cliente_direccion.lugar = results[10].formatted_address;
+
+                //this.cliente_direccion.direccion = results[1].formatted_address.split(',', 1).toString();
+
+            } else {
+                console.log('No results found');
+            }
+            } else {
+            console.log('Geocoder failed due to: ' + status);
+            }
+        });
+
       
         
     //   console.log(response.data.results[0]);
@@ -672,4 +696,8 @@ methods:{
 
   }
 
+
+//   function CambiarContrseñaIncio(){
+
+//   }
 
