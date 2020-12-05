@@ -43,8 +43,16 @@
     <script src="<?php echo URL_JS ?>vendor-all.min.js"></script>
     <script src="<?php echo URL_JS ?>plugins/bootstrap.min.js"></script>	
 	<script src="<?php echo URL_JS ?>plugins/jquery.validate.min.js"></script>
-    
-    <script src="<?php echo URL_JS ?>plugins/jquery.dataTables.min.js"></script>
+	<script src="<?php echo URL_JS ?>plugins/jquery.dataTables.min.js"></script>
+
+	<script src="<?php echo URL_JS?>plugins/dataTables.buttons.min.js"></script>
+	<script src="<?php echo URL_JS?>pages/data-export-custom.js"></script>
+	<script src="<?php echo URL_JS?>plugins/buttons.print.min.js"></script>
+	<script src="<?php echo URL_JS?>plugins/buttons.colVis.min.js"></script>
+	<script src="<?php echo URL_JS?>plugins/pdfmake.min.js"></script>
+	<script src="<?php echo URL_JS?>plugins/jszip.min.js"></script>
+	<script src="<?php echo URL_JS?>plugins/buttons.html5.min.js"></script>
+
 	<script src="<?php echo URL_JS ?>plugins/dataTables.bootstrap4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 	

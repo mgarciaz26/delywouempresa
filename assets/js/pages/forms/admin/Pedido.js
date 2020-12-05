@@ -23,7 +23,7 @@ const frmPanel = new Vue({
         // detalle: ''
     },
     mounted: function(){           
-        this.ListarData();
+        // this.ListarData();
     //    this.ComboCliente();
     //    this.ComboDireccion();
     //    this.ComboMedioPago();
@@ -33,7 +33,7 @@ const frmPanel = new Vue({
     //    await this.ListarCategoria();
     },
     methods: {
-        AgregarTabla: function (data) {
+        AgregarTabla: function (data) {            
             this.Table.row.add(
                 [data.cliente,                    
                 data.direccion,
@@ -262,14 +262,15 @@ const frmDataFiltro = new Vue({
     el:'#frmDataFiltro',
     data:{       
         listamediopago:[{}],
-        mydateInicio:'',
-        mydateFin:'',
-        ListaEstado:[{'estado':1,'descripcion':'Activo'},{'estado':0,'descripcion':'Inactivo'}],
+        mydateInicio:'2020-12-01',
+        mydateFin:'2020-12-31',
+        ListaEstado:[{'estado':-1,'descripcion':'Seleccione...'},{'estado':1,'descripcion':'Activo'},{'estado':0,'descripcion':'Inactivo'}],
         descripcionEstado:'',
         estado:1
+        // mediop:-1
     },
     mounted: function(){           
-        this.ComboMedioPago();
+        this.ComboMedioPago();        
     },
     methods: {
         ComboMedioPago :function(){
@@ -298,24 +299,59 @@ const frmDataFiltro = new Vue({
             }).then(respuesta => {
 
                 if (respuesta.data.estado) {                
-                    $('#report-table').DataTable().clear();
+                    // $('#report-table').DataTable({
+
+                    // }).clear();
+
                     let lstData = respuesta.data.pedido;
+                    if(lstData.length==0) {
+                        $('#report-table > tbody > tr').each(function(e){
+                            if($(this).hasClass('row')){
+                                $(this).remove();
+                            }
+                        });
+                        // frmPanel.Table.clear();
+                        // $("#report-table").DataTable().clear();
+                    }
+                    
+
+                    
+                    // if(lstData.length==0) return
                     // this.tableData = lstData;
                     // setTimeout(() => location.reload(), 1000);                      
+                    frmPanel.Table.clear();
                     lstData.forEach(pedido => {
-                        console.log(pedido);
+                        console.log(pedido);                        
                         frmPanel.AgregarTabla(pedido);
                     });
 
-                    $('#report-table').DataTable().draw();
+                    $('#report-table').DataTable(
+                        // {
+                        //     dom: 'Bfrtip',
+                        //     buttons: [
+                        //         'copy', 'csv', 'excel', 'pdf', 'print'
+                        //     ]
+                        // }                                            
+                    ).draw();
 
                 }else{
 
+                    $('#report-table > tbody > tr').each(function(e){                        
+                        if($(this).hasClass('row')){
+                            $(this).remove();
+                        }
+                        
+                    });
+                    // $("#report-table").DataTable().clear();
+                    // frmPanel.Table.clear();
+
+                    // $('#report-table').DataTable().draw();
                     // this.Table.clear();
                     
                     // this.Table.draw();
 
                 }
+                this.LimpiarFormulario();
                 $('#modal-report-filtro').modal('hide');
             });
 
@@ -328,6 +364,16 @@ const frmDataFiltro = new Vue({
                 mydateInicio:this.mydateInicio,
                 mydateFin:this.mydateFin
             }
+        },
+        LimpiarFormulario: function () {
+            var selectestado = document.getElementById("estados");
+            var selectmediop = document.getElementById("mediopagos");
+            selectestado.children[0].selected=true;
+            selectmediop.children[0].selected=true;                 
+            this.mydateInicio = '2020-12-01';
+            this.mydateFin = '2020-12-31';   
+            this.estado = -1,                              
+            this.descripcionMP =''              
         }
 
     }
@@ -594,7 +640,7 @@ const frmDataFiltro = new Vue({
 function CrearTable() {
     var table = $('#report-table').DataTable(
         {
-            //dom: 'Bfrtip',
+            dom: 'Bfrtip',
             buttons: [
                 'copy', 'csv', 'excel', 'pdf', 'print'
             ]

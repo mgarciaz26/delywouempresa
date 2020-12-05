@@ -21,10 +21,17 @@
                                 </select>
                             </div>
                         </div>     -->
+
+                        <!-- estado:this.estado,                              
+                mediop:this.descripcionMP,
+                mydateInicio:this.mydateInicio,
+                mydateFin:this.mydateFin -->
+
+
                         <div class="col-md-12">
                             <div class="form-group fill">
                                 <label style="color: red;font-size: 0.75rem;top: -10px;" class="floating-label">Estado</label>
-                                <select class="form-control"  v-on:change="onChangeEstado($event)">                                    
+                                <select class="form-control"  v-on:change="onChangeEstado($event)" id="estados">                                    
                                     <option v-for="item in ListaEstado" :value="item.estado" v-text="item.descripcion"></option>                                    
                                 </select>
                             </div>
@@ -32,7 +39,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                             <label style="color: red;font-size: 0.75rem;top: -10px;" class="floating-label">Medio Pago</label>
-                                <select class="form-control"  v-on:change="onChangeMedioPago($event)">                                                                        
+                                <select class="form-control"  v-on:change="onChangeMedioPago($event)" id="mediopagos">                                                                        
                                     <option v-for="item in listamediopago" :value="item.mediopago_id" v-text="item.mediopago"></option>                                    
                                 </select>                                
                             </div>
@@ -40,10 +47,12 @@
                         <div class="col-md-12">
                             <div class="form-group">                            
                                 <label style="color: red;font-size: 0.75rem;top: -10px;">Fecha Inicio:</label>
-                                <input style="margin-left: 10px;margin-right: 30px;" type="date" v-model="mydateInicio" id="finicio" name="finicio" value="2020-07-22" min="2020-01-01" max="2018-12-30">
+                                <!-- value="2020-12-01" min="2020-01-01" max="2020-12-31" -->
+                                <input style="margin-left: 10px;margin-right: 30px;" type="date" v-model="mydateInicio" id="finicio" name="finicio" value="01-12-2020" >
 
                                 <label style="color: red;font-size: 0.75rem;top: -10px;">Fecha Fin:</label>
-                                <input style="margin-left: 10px;" type="date" v-model="mydateFin" id="ffin" name="ffin" value="2020-07-22" min="2020-01-01" max="2020-12-30">
+                                <!-- value="2020-12-01" min="2020-01-01" max="2020-12-31" -->
+                                <input style="margin-left: 10px;" type="date" v-model="mydateFin" id="ffin" name="ffin" value="2020-12-31">
                             </div>                            
                         </div>  
 
